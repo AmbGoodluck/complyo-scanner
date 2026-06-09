@@ -1,0 +1,6 @@
+services:
+  compliyo:
+    image: compliyo
+    build:
+      context: .
+      dockerfile: ./Dockerfile

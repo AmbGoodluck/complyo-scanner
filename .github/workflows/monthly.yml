@@ -1,0 +1,28 @@
+name: Complyo Daily Reports
+
+# Runs DAILY and only reports subscribers whose signup day-of-month is today,
+# so each customer gets their report on their own date each month.
+
+on:
+  schedule:
+    - cron: "0 13 * * *"   # 13:00 UTC every day
+  workflow_dispatch: {}
+
+jobs:
+  reports:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install
+      - run: npx playwright install --with-deps chromium
+      - run: npx tsx src/monthly.ts
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+          REPLY_TO: ${{ secrets.REPLY_TO }}

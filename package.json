@@ -1,0 +1,20 @@
+{
+  "name": "complyo-scanner",
+  "version": "0.1.0",
+  "description": "Complyo — automated website accessibility (ADA/WCAG) compliance scanner.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "scan": "tsx src/batch.ts",
+    "scan:one": "tsx src/scan.ts"
+  },
+  "dependencies": {
+    "@axe-core/playwright": "^4.10.1",
+    "playwright": "^1.49.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.20",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
