@@ -1,0 +1,36 @@
+name: Complyo Send One Report
+
+# Fired by the Polar webhook (via repository_dispatch) the moment someone
+# subscribes, to email them their full report right away. Also runnable by hand
+# from the Actions tab for testing.
+
+on:
+  repository_dispatch:
+    types: [send_report]
+  workflow_dispatch:
+    inputs:
+      email:
+        description: "Subscriber email"
+        required: true
+      website:
+        description: "Website to scan"
+        required: true
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install
+      - run: npx playwright install --with-deps chromium
+      - run: npx tsx src/send-one.ts
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+          REPLY_TO: ${{ secrets.REPLY_TO }}
+          SUBSCRIBER_EMAIL: ${{ github.event.client_payload.email || github.event.inputs.email }}
+          SUBSCRIBER_WEBSITE: ${{ github.event.client_payload.website || github.event.inputs.website }}
