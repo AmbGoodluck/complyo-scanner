@@ -1,0 +1,23 @@
+name: Complyo Prospect Engine
+
+on:
+  workflow_dispatch: {}        # run manually from the Actions tab
+  schedule:
+    - cron: "0 14 * * 1-5"     # weekdays at 14:00 UTC; processes any new prospects
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install
+      - run: npx playwright install --with-deps chromium
+      - run: npx tsx src/prospect-engine.ts
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          BUSINESS_URL: ${{ secrets.BUSINESS_URL }}
+          REPLY_TO: ${{ secrets.REPLY_TO }}
