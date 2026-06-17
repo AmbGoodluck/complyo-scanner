@@ -91,7 +91,7 @@ function emailHtml(host: string, score: number, grade: string, topIssue?: any, i
 
         <div style="background:#f0fdfa;border:1px solid #99f6e4;border-radius:12px;padding:20px;margin:18px 0">
           <p style="font-size:16px;font-weight:bold;color:#0e2a47;margin:0 0 8px">That's what I built Complyo to handle.</p>
-          <p style="font-size:14px;line-height:1.55;color:#0f3b36;margin:0 0 16px">For <b>$79/month</b>, I re-check ${host} every month and email you a fresh report the moment something changes, so you're never caught off guard. No contract, cancel anytime, and you'll always know exactly where your site stands. That's less than the cost of a single hour with a lawyer if a letter ever did arrive.</p>
+          <p style="font-size:14px;line-height:1.55;color:#0f3b36;margin:0 0 16px">For <b>$24.99/month</b>, I re-check ${host} every month and email you a fresh report the moment something changes, so you're never caught off guard. No contract, cancel anytime, and you'll always know exactly where your site stands. It's a small amount of peace of mind against an ADA demand letter that could cost thousands.</p>
           <a href="${prospectCheckoutUrl(fullWebsite || host)}" style="display:inline-block;background:#0d9488;color:#fff;text-decoration:none;font-weight:bold;font-size:15px;padding:13px 24px;border-radius:10px">Keep ${host} monitored &rarr;</a>
         </div>
 
